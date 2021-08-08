@@ -17,15 +17,15 @@ https://www.cyberciti.biz/faq/how-to-install-kvm-on-centos-7-rhel-7-headless-ser
 http://www.ghanshammahajan.com/how-to-install-ansible-in-centos-7-with-pip/
 
 You will need lxml to alter/create XML files for KVM
-To install it, I recommend you to use "pip install lxml --user". More info: 
+To install it, I recommend you to use "pip install lxml --user". More info:
 
 https://lxml.de/installation.html
 
 ## Usage ##
 
 The exeuction is as simple as execute the follwing to create the cluster:
-
-`ansible-playbook playbook.yml`
+`ansible-vault create group_vars/all/ansible.yml` and add `ansible_sudo_pass: yourpassword`
+`ansible-playbook playbook.yml --ask-vault-pass`
 
 or the folliwng to delete it:
 
@@ -123,7 +123,7 @@ guests:
 
 - */etc/hosts*
 
-In order to get the playbook working, is necessary to add the VMs hostname and IPs to you kvm_host hosts file. 
+In order to get the playbook working, is necessary to add the VMs hostname and IPs to you kvm_host hosts file.
 I added that step into the initial playbook file `vms_creation.ym`, so Im using `become_user: root`, or just add them directly before the ansible execution.
 Should end like this:
 ```
@@ -147,7 +147,7 @@ This is the part adding the lines to `/etc/hosts`
         line: "## KUBERNETES CLUSTER ##\n"
         state: present
 [....]
-```        
+```
 
 - *playbook.yml*
 
@@ -176,10 +176,10 @@ One of the most commun errors was startrting the VMs
 
 ```
 TASK [start vm] ****************************************************************
-An exception occurred during task execution. 
-To see the full traceback, use -vvv. 
-The error was: libvirt.libvirtError: Cannot access storage file 
-'/home/P42/Github/Kubernetes/KVM_Disks/kmaster.qcow2' 
+An exception occurred during task execution.
+To see the full traceback, use -vvv.
+The error was: libvirt.libvirtError: Cannot access storage file
+'/home/P42/Github/Kubernetes/KVM_Disks/kmaster.qcow2'
 (as uid:107, gid:107): Permission denied
 ```
 
@@ -188,5 +188,5 @@ The solution is to add your user in the qemu.conf file:
 [root@server libvirt]# grep -i P42 /etc/libvirt/qemu.conf
 user = "P42"
 group = "P42"
-[root@server libvirt]# 
+[root@server libvirt]#
 ```

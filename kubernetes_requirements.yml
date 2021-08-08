@@ -76,7 +76,7 @@
 
     - name: Install yum-utils lvm2 device-mapper-persistent-data
       yum:
-        name: 
+        name:
           - yum-utils
           - lvm2
           - device-mapper-persistent-data
@@ -174,7 +174,7 @@
     - name: Install packages kubelet kubeadm kubectl
     # Install kubelet/kubeadm/kubectl
       yum:
-        name: 
+        name:
           - kubelet
           - kubeadm
           - kubectl
@@ -184,6 +184,12 @@
         name: kubelet
         enabled: yes
         masked: no
+
+    - name: Add a line to a file if the file does not exist, without passing regexp
+      lineinfile:
+        path: /etc/sysconfig/kubelet
+        line: KUBELET_EXTRA_ARGS=--cgroup-driver=cgroupfs
+        create: yes
 
     - name: Restart kubelet
       service:
