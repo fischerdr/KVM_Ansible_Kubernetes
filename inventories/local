@@ -1,0 +1,14 @@
+[all]
+control
+worker[1:3]
+
+[kubernetes]
+control
+worker[1:3]
+
+[master]
+control
+
+[nodes]
+worker[1:3]
+

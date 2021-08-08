@@ -1,7 +1,7 @@
 #Ignore the KVM_disks directory
 KVM_Disks/
 group_vars/all/ansible.yml
-
+ansible_facts_cache/
 
 # Created by https://www.toptal.com/developers/gitignore/api/ansible
 # Edit at https://www.toptal.com/developers/gitignore?templates=ansible

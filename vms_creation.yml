@@ -17,15 +17,12 @@
     - variables.yml
 
   tasks:
-
-
     - name: List all KVM Networks
-      virt_net: 
+      virt_net:
         command: list_nets
       register: exist
 
     #- debug: msg="{{ exist.list_nets }}"
-
 
     - name: Define Network
       virt_net:
@@ -39,7 +36,6 @@
         command: create
         name: '{{ network_name }}'
       when: not network_name in exist.list_nets
-
 
     - name: Modify Network
       virt_net:
@@ -83,11 +79,11 @@
 
 
     - name: Duplicate Seed
-      copy: 
-        src={{ vm_location }}/{{ seed_name }}.{{ file_type }} 
-        dest={{ vm_location }}/{{ item.value.name }}.{{ file_type }} 
+      copy:
+        src={{ vm_location }}/{{ seed_name }}.{{ file_type }}
+        dest={{ vm_location }}/{{ item.value.name }}.{{ file_type }}
       when: item.value.name not in disks.stdout
-      with_dict: "{{ guests }}"  
+      with_dict: "{{ guests }}"
 
 
     - name: Get list of VMs
@@ -95,7 +91,6 @@
       virt:
         command: "list_vms"
       register: vms
-
 
     - name: define vm
       virt:
@@ -105,14 +100,11 @@
       when: item.value.name not in vms.list_vms
       with_dict: "{{ guests }}"
 
-
-
     - name: start vm
       virt:
         name: "{{ item.value.name }}"
         state: running
       with_dict: "{{ guests }}"
-
 
     - name: add Kbernetes line to /etc/hosts
       # Adding title to /etc/hosts file
@@ -134,8 +126,6 @@
         state: present
       with_dict: "{{ guests }}"
 
-
-
     - name: Test reachability
     # This part will make sure ssh port is open before the next steps starts
       wait_for:
@@ -145,10 +135,10 @@
 
 - name: hostname
   hosts: kubernetes
-  tasks: 
+  tasks:
     - name: Update hostname using hostname
     # Change hostname of the servers
-      hostname: 
+      hostname:
         name: "{{inventory_hostname}}"
 
 
