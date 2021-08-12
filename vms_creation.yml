@@ -95,7 +95,7 @@
     - name: define vm
       virt:
         command: define
-        xml: "{{ lookup('template', 'vms_template.xml.j2') }}"
+        xml: "{{ lookup('template', 'vms_template_vbr.xml.j2') }}"
         #uri: 'qemu:///system'
       when: item.value.name not in vms.list_vms
       with_dict: "{{ guests }}"
