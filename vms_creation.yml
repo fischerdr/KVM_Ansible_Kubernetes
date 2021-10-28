@@ -28,7 +28,7 @@
       virt_net:
         command: define
         name: '{{ network_name }}'
-        xml: "{{ lookup('template', 'vmnetwork_template.xml.j2') }}"
+        xml: "{{ lookup('template', 'vmnetwork_template_vbr.xml.j2') }}"
       when: not network_name in exist.list_nets
 
     - name: Create Network
@@ -43,11 +43,13 @@
         command: modify
         xml: "<host mac='{{ item.value.mac }}' name='{{ item.value.name }}' ip='{{ item.value.ip }}'/>"
       loop: "{{ lookup('dict', guests) }}"
+      when: not network_name in exist.list_nets
 
     - name: Autostart Network
       virt_net:
         name: '{{ network_name }}'
         autostart: yes
+      when: not network_name in exist.list_nets
 
 
     - name: Create a directory if it does not exist

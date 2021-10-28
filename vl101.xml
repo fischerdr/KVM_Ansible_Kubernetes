@@ -1,0 +1,5 @@
+<network>
+  <name>vl101</name>
+  <forward mode="bridge"/>
+  <bridge name="vbr100"/>
+</network>

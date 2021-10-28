@@ -11,7 +11,7 @@ kvm_host: localhost
 
 # KVM Network Information
 
-bridge_name: kuberbr42
+bridge_name: vl101
 gateway_ip: 10.10.1.1
 netmask: 255.255.255.0
 dhcp_range_start: 10.10.1.10
